@@ -1,0 +1,47 @@
+.elo-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 340px;
+  margin: 2rem auto;
+  background: #fff;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+.elo-table-header {
+  font-weight: 600;
+  background: linear-gradient(90deg, #f8fafc 0%, #e2e8f0 100%);
+  text-align: center;
+  padding: 12px 8px;
+  letter-spacing: 0.03em;
+  color: #22223b;
+  border-bottom: 2px solid #cbd5e1;
+  border-right: 1px solid #e2e8f0;
+}
+
+.elo-table-header:last-child {
+  border-right: none;
+}
+
+.elo-table-cell {
+  padding: 10px 8px;
+  border-bottom: 1px solid #f1f5f9;
+  border-right: 1px solid #f1f5f9;
+  text-align: right;
+  color: #22223b;
+  background: #fff;
+  transition: background 0.2s;
+}
+
+.elo-table-cell:last-child {
+  border-right: none;
+}
+
+.elo-table-cell:hover {
+  background: #f1f5f9;
+} 
