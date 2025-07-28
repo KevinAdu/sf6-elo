@@ -1,19 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
-import EloCalculator from '../components/EloCalculator.astro';
+import EloProbabilityTable from '../components/EloProbabilityTable.astro';
 ---
 
 <Layout>
 	<Navigation />
 	<main class="main-content">
 		<div class="container">
-			<h1>SF6 Elo Calculator</h1>
+			<h1>Elo Rating Reference</h1>
 			<p class="description">
-				Calculate your win probabilities against opponents with different Elo ratings. 
-				Enter your rating below to see your chances against various skill levels.
+				This table shows the probability of winning based on the difference in Elo ratings between two players. 
+				A positive rating difference means the first player is higher rated, while a negative difference means they are lower rated.
 			</p>
-			<EloCalculator />
+			<EloProbabilityTable />
 		</div>
 	</main>
 </Layout>
@@ -35,7 +35,6 @@ import EloCalculator from '../components/EloCalculator.astro';
 		font-weight: 700;
 		margin: 0 0 1rem 0;
 		font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-		text-align: center;
 	}
 
 	.description {
@@ -44,7 +43,6 @@ import EloCalculator from '../components/EloCalculator.astro';
 		line-height: 1.6;
 		margin: 0 0 3rem 0;
 		font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-		text-align: center;
 	}
 
 	@media (max-width: 640px) {
@@ -60,4 +58,4 @@ import EloCalculator from '../components/EloCalculator.astro';
 			font-size: 1rem;
 		}
 	}
-</style>
+</style> 

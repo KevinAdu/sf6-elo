@@ -1,0 +1,87 @@
+---
+// Get current page path for active link highlighting
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="navigation">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/">SF6 Elo Calculator</a>
+    </div>
+    <div class="nav-links">
+      <a href="/" class={currentPath === "/" ? "active" : ""}>Calculator</a>
+      <a href="/reference" class={currentPath === "/reference" ? "active" : ""}>Reference</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navigation {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+  }
+
+  .nav-brand a {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #22223b;
+    text-decoration: none;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+
+  .nav-brand a:hover {
+    color: #3b82f6;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    color: #6b7280;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+
+  .nav-links a:hover {
+    color: #22223b;
+  }
+
+  .nav-links a.active {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+  }
+
+  @media (max-width: 640px) {
+    .nav-container {
+      padding: 0 1rem;
+    }
+    
+    .nav-brand a {
+      font-size: 1.1rem;
+    }
+    
+    .nav-links {
+      gap: 1rem;
+    }
+  }
+</style> 
