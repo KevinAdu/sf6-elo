@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.10.2"
+    "@astrojs/react": "^4.3.1",
+    "@tanstack/react-query": "^5.90.2",
+    "astro": "^5.10.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
