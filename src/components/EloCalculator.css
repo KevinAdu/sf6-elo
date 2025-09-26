@@ -70,9 +70,7 @@
 }
 
 .probability-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1px;
+  min-width: 100%;
   background: #e5e7eb;
   border-radius: 8px;
   overflow: hidden;

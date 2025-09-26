@@ -6,9 +6,9 @@ function formatPercent(prob: number): string {
 }
 
 // Generate rating differences to show (every 100 points from -400 to +400)
-const ratingDiffs = [];
+const ratingOffsets = [];
 for (let diff = -400; diff <= 400; diff += 100) {
-  ratingDiffs.push(diff);
+  ratingOffsets.push(diff);
 }
 ---
 
@@ -22,21 +22,36 @@ for (let diff = -400; diff <= 400; diff += 100) {
       id="elo" 
       name="elo" 
       value="1500"
-      min="0" 
-      max="3000" 
+      min="600" 
+      max="2500" 
       step="1"
       required
     />
-    <button type="submit">Calculate Probabilities</button>
+    <!-- <label for="elo">Opponent's Elo Rating:</label>
+    <input 
+      type="number" 
+      id="elo" 
+      name="elo" 
+      value="1500"
+      min="600" 
+      max="2500" 
+      step="1"
+      required
+    /> -->
   </form>
 
   <div class="results" id="results" style="display: none;">
     <h4>Win Probabilities for <span id="userEloDisplay">1500</span> Elo</h4>
-    <div class="probability-grid" id="probabilityGrid">
-      <div class="grid-header">Opponent Rating</div>
-      <div class="grid-header">Rating Difference</div>
-      <div class="grid-header">Win Probability</div>
-    </div>
+    <table class="probability-grid" id="probabilityGrid">
+      <thead>
+        <tr>
+          <th class="grid-header">Opponent Rating</th>
+          <th class="grid-header">Rating Difference</th>
+          <th class="grid-header">Win Probability</th>
+        </tr>
+    </thead>
+    <tbody id="probabilityGridBody"></tbody>
+    </table>
   </div>
 </div>
 
@@ -49,9 +64,9 @@ for (let diff = -400; diff <= 400; diff += 100) {
   }
 
   // Generate rating differences
-  const ratingDiffs: number[] = [];
-  for (let diff = -400; diff <= 400; diff += 100) {
-    ratingDiffs.push(diff);
+  const ratingOffsets: number[] = [];
+  for (let diff = -400; diff <= 400; diff += 50) {
+    ratingOffsets.push(diff);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -59,51 +74,44 @@ for (let diff = -400; diff <= 400; diff += 100) {
     const input = document.getElementById('elo') as HTMLInputElement;
     const results = document.getElementById('results') as HTMLDivElement;
     const userEloDisplay = document.getElementById('userEloDisplay') as HTMLSpanElement;
-    const probabilityGrid = document.getElementById('probabilityGrid') as HTMLDivElement;
+    const probabilityGrid = document.getElementById('probabilityGridBody') as HTMLDivElement;
 
     function updateResults() {
       const userElo = parseInt(input.value) || 1500;
       userEloDisplay.textContent = userElo.toString();
       
-      // Clear existing rows (keep headers)
       const existingRows = probabilityGrid.querySelectorAll('.grid-cell');
       existingRows.forEach(row => row.remove());
 
-      // Add new rows
-      ratingDiffs.forEach(diff => {
+      
+      ratingOffsets.forEach(diff => {
         const opponentRating = userElo + diff;
-        const winProb = getClosestProbability(diff);
+        const winProbability = getClosestProbability(diff);
+
+        const probabilityGridRow = document.createElement('tr');
         
-        const opponentCell = document.createElement('div');
+        const opponentCell = document.createElement('td');
         opponentCell.className = 'grid-cell opponent-rating';
         opponentCell.textContent = opponentRating.toString();
         
-        const diffCell = document.createElement('div');
-        diffCell.className = 'grid-cell rating-diff';
-        diffCell.textContent = diff > 0 ? `+${diff}` : diff.toString();
+        const offsetCell = document.createElement('td');
+        offsetCell.className = 'grid-cell rating-diff';
+        offsetCell.textContent = diff > 0 ? `+${diff}` : diff.toString();
         
-        const probCell = document.createElement('div');
-        probCell.className = 'grid-cell win-prob';
-        probCell.textContent = formatPercent(winProb);
+        const probabilityCell = document.createElement('td');
+        probabilityCell.className = 'grid-cell win-prob';
+        probabilityCell.textContent = formatPercent(winProbability);
         
-        probabilityGrid.appendChild(opponentCell);
-        probabilityGrid.appendChild(diffCell);
-        probabilityGrid.appendChild(probCell);
+        probabilityGridRow.appendChild(opponentCell);
+        probabilityGridRow.appendChild(offsetCell);
+        probabilityGridRow.appendChild(probabilityCell);
+        probabilityGrid.appendChild(probabilityGridRow);
       });
 
       results.style.display = 'block';
     }
 
-    // Handle form submission
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      updateResults();
-    });
-
-    // Auto-update on input change
     input.addEventListener('change', updateResults);
-    
-    // Show initial results
     updateResults();
   });
 </script> 
