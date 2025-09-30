@@ -47,4 +47,8 @@ export function getClosestProbability(diff: number): number {
     }
   }
   return closest.prob;
-} 
+}
+
+export function calculateWinProbability(opponentRating: number, playerRating: number) {
+  return 1 / (1 + Math.pow(10, (opponentRating - playerRating) / 400));
+}

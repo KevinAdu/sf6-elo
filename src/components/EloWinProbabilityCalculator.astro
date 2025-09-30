@@ -1,0 +1,64 @@
+---
+import './EloCalculator.css';
+---
+
+<div class="elo-calculator">
+  <h3>Elo Rating Calculator</h3>
+  
+  <form class="elo-form" id="eloForm">
+    <label for="user-elo">Your Elo Rating:</label>
+    <input 
+      type="number" 
+      id="user-input" 
+      name="user-elo" 
+      value="1500"
+      min="400" 
+      max="2600" 
+      step="1"
+      required
+    />
+    <label for="opponent-elo">Opponent's Elo Rating:</label>
+    <input 
+      type="number" 
+      id="opponent-input" 
+      name="opponent-elo" 
+      value="1500"
+      min="400" 
+      max="2600" 
+      step="1"
+      required
+    />
+  </form>
+  <div id="winPercentage"></div>
+</div>
+
+<script>
+  // Import the helper function
+  import { calculateWinProbability } from '../utils/eloProbabilities';
+
+  function formatPercent(prob: number): string {
+    return (prob * 100).toFixed(2) + '%';
+  }
+
+  // Generate rating differences
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('eloForm') as HTMLFormElement;
+    const userInput = document.getElementById('user-input') as HTMLInputElement;
+    const opponentInput = document.getElementById('opponent-input') as HTMLInputElement;
+    const results = document.getElementById('winPercentage') as HTMLDivElement;
+
+    function updateResults() {
+      const userElo = parseInt(userInput.value) || 1500;
+      const opponentElo = parseInt(opponentInput.value) || 1500;
+      const winProbability = calculateWinProbability(opponentElo, userElo);
+      results.textContent = formatPercent(winProbability);
+
+    }
+
+    userInput.addEventListener('change', updateResults);
+    opponentInput.addEventListener('change', updateResults);
+    updateResults();
+  });
+</script> 

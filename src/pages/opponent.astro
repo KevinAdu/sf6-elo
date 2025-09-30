@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import '../styles/main.css';
+import EloWinProbabilityCalculator from '../components/EloWinProbabilityCalculator.astro';
+---
+
+<Layout>
+	<Navigation />
+	<main class="main-content">
+		<div class="container">
+			<h1>Opponent Win Probability</h1>
+			<p class="description">
+				This table shows the probability of winning based on the difference in Elo ratings between two players. 
+				A positive rating difference means the first player is higher rated, while a negative difference means they are lower rated.
+			</p>
+			<EloWinProbabilityCalculator />
+		</div>
+	</main>
+</Layout>
