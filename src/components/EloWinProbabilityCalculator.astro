@@ -29,12 +29,17 @@ import './EloCalculator.css';
       required
     />
   </form>
-  <div id="winPercentage"></div>
+  <h4>Probability of winning a single game</h4>
+  <p id="winPercentage"></p>
+  <h4>Probability of winning a BO3 match</h4>
+  <p id="bo3WinPercentage"></p>
+  <h4>Probability of winning a BO5 match</h4>
+  <p id="bo5WinPercentage"></p>
 </div>
 
 <script>
   // Import the helper function
-  import { calculateWinProbability } from '../utils/eloProbabilities';
+  import { calculateBO3Probability, calculateBO5Probability, calculateWinProbability } from '../utils/eloProbabilities';
 
   function formatPercent(prob: number): string {
     return (prob * 100).toFixed(2) + '%';
@@ -44,21 +49,27 @@ import './EloCalculator.css';
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('eloForm') as HTMLFormElement;
     const userInput = document.getElementById('user-input') as HTMLInputElement;
     const opponentInput = document.getElementById('opponent-input') as HTMLInputElement;
-    const results = document.getElementById('winPercentage') as HTMLDivElement;
+    const results = document.getElementById('winPercentage') as HTMLSpanElement;
+    const bo3Results = document.getElementById('bo3WinPercentage') as HTMLSpanElement;
+    const bo5Results = document.getElementById('bo5WinPercentage') as HTMLSpanElement;
 
     function updateResults() {
       const userElo = parseInt(userInput.value) || 1500;
       const opponentElo = parseInt(opponentInput.value) || 1500;
+      
       const winProbability = calculateWinProbability(opponentElo, userElo);
+      const bo3Probability = calculateBO3Probability(winProbability);
+      const bo5Probability = calculateBO5Probability(winProbability);
       results.textContent = formatPercent(winProbability);
+      bo3Results.textContent = formatPercent(bo3Probability);
+      bo5Results.textContent = formatPercent(bo5Probability);
 
     }
 
-    userInput.addEventListener('change', updateResults);
-    opponentInput.addEventListener('change', updateResults);
+    userInput.addEventListener('input', updateResults);
+    opponentInput.addEventListener('input', updateResults);
     updateResults();
   });
 </script> 
