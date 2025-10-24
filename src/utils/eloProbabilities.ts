@@ -34,6 +34,10 @@ export const eloProbabilities = [
   { diff: -800, prob: 0.9901 },
 ];
 
+export function formatPercent(prob: number): string {
+  return (prob * 100).toFixed(2) + '%';
+}
+
 export function getProbability(diff: number): number | null {
   const entry = eloProbabilities.find(e => e.diff === diff);
   return entry ? entry.prob : null;

@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import '../styles/main.css';
-import EloWinProbabilityCalculator from '../components/EloWinProbabilityCalculator.astro';
+import EloQueryClientProvider from '../components/EloQueryClientProvider';
+
 ---
 
 <Layout>
@@ -14,7 +15,7 @@ import EloWinProbabilityCalculator from '../components/EloWinProbabilityCalculat
 				This table shows the probability of winning based on the difference in Elo ratings between two players. 
 				A positive rating difference means the first player is higher rated, while a negative difference means they are lower rated.
 			</p>
-			<EloWinProbabilityCalculator />
+			<EloQueryClientProvider client:visible />
 		</div>
 	</main>
 </Layout>
