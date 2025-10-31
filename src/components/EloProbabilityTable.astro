@@ -1,17 +1,15 @@
 ---
-import { eloProbabilities } from '../utils/eloProbabilities';
+import { eloProbabilities, formatPercent } from '../utils/eloProbabilities';
 import './EloProbabilityTable.css';
-
-function formatPercent(prob: number): string {
-  return (prob * 100).toFixed(2) + '%';
-}
 ---
 
 <div class="elo-table">
   <div class="elo-table-header">Rating Diff</div>
   <div class="elo-table-header">Prob Win</div>
-  {eloProbabilities.map((entry) => [
-    <div class="elo-table-cell">{entry.diff > 0 ? `+${entry.diff}` : entry.diff}</div>,
-    <div class="elo-table-cell">{formatPercent(entry.prob)}</div>
-  ])}
-</div> 
+  {
+    eloProbabilities.map((entry) => [
+      <div class="elo-table-cell">{entry.diff > 0 ? `+${entry.diff}` : entry.diff}</div>,
+      <div class="elo-table-cell">{formatPercent(entry.prob)}</div>
+    ])
+  }
+</div>

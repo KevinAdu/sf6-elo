@@ -9,7 +9,7 @@ export const eloProbabilities = [
   { diff: 450, prob: 0.0698 },
   { diff: 400, prob: 0.0909 },
   { diff: 350, prob: 0.1177 },
-  { diff: 300, prob: 0.1510 },
+  { diff: 300, prob: 0.151 },
   { diff: 250, prob: 0.1917 },
   { diff: 200, prob: 0.2403 },
   { diff: 150, prob: 0.2966 },
@@ -21,7 +21,7 @@ export const eloProbabilities = [
   { diff: -150, prob: 0.7034 },
   { diff: -200, prob: 0.7597 },
   { diff: -250, prob: 0.8083 },
-  { diff: -300, prob: 0.8490 },
+  { diff: -300, prob: 0.849 },
   { diff: -350, prob: 0.8823 },
   { diff: -400, prob: 0.9091 },
   { diff: -450, prob: 0.9302 },
@@ -31,7 +31,7 @@ export const eloProbabilities = [
   { diff: -650, prob: 0.9768 },
   { diff: -700, prob: 0.9825 },
   { diff: -750, prob: 0.9868 },
-  { diff: -800, prob: 0.9901 },
+  { diff: -800, prob: 0.9901 }
 ];
 
 export function formatPercent(prob: number): string {
@@ -39,7 +39,7 @@ export function formatPercent(prob: number): string {
 }
 
 export function getProbability(diff: number): number | null {
-  const entry = eloProbabilities.find(e => e.diff === diff);
+  const entry = eloProbabilities.find((e) => e.diff === diff);
   return entry ? entry.prob : null;
 }
 
@@ -61,6 +61,9 @@ export function calculateBO3Probability(winProbability: number): number {
   return winProbability * winProbability * (3 - 2 * winProbability);
 }
 
-export function calculateBO5Probability(winProbability: number): number  {
-  return Math.pow(winProbability, 3) * (1 + 3 * (1 - winProbability) + 6 * Math.pow(1 - winProbability, 2));
+export function calculateBO5Probability(winProbability: number): number {
+  return (
+    Math.pow(winProbability, 3) *
+    (1 + 3 * (1 - winProbability) + 6 * Math.pow(1 - winProbability, 2))
+  );
 }

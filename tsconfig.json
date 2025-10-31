@@ -3,7 +3,7 @@
   "include": [
     ".astro/types.d.ts",
     "**/*"
-  ],
+, ".prettierrc.mjs"  ],
   "exclude": [
     "dist"
   ],

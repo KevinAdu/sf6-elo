@@ -1,10 +1,6 @@
 ---
 import './EloCalculator.css';
 
-function formatPercent(prob: number): string {
-  return (prob * 100).toFixed(2) + '%';
-}
-
 // Generate rating differences to show (every 100 points from -400 to +400)
 const ratingOffsets = [];
 for (let diff = -400; diff <= 400; diff += 100) {
@@ -14,19 +10,10 @@ for (let diff = -400; diff <= 400; diff += 100) {
 
 <div class="elo-calculator">
   <h3>Elo Rating Calculator</h3>
-  
+
   <form class="elo-form" id="eloForm">
     <label for="elo">Your Elo Rating:</label>
-    <input 
-      type="number" 
-      id="elo" 
-      name="elo" 
-      value="1500"
-      min="600" 
-      max="2500" 
-      step="1"
-      required
-    />
+    <input type="number" id="elo" name="elo" value="1500" min="600" max="2500" step="1" required />
     <!-- <label for="elo">Opponent's Elo Rating:</label>
     <input 
       type="number" 
@@ -49,19 +36,15 @@ for (let diff = -400; diff <= 400; diff += 100) {
           <th class="grid-header">Rating Difference</th>
           <th class="grid-header">Win Probability</th>
         </tr>
-    </thead>
-    <tbody id="probabilityGridBody"></tbody>
+      </thead>
+      <tbody id="probabilityGridBody"></tbody>
     </table>
   </div>
 </div>
 
 <script>
   // Import the helper function
-  import { getClosestProbability } from '../utils/eloProbabilities';
-
-  function formatPercent(prob: number): string {
-    return (prob * 100).toFixed(2) + '%';
-  }
+  import { formatPercent, getClosestProbability } from '../utils/eloProbabilities';
 
   // Generate rating differences
   const ratingOffsets: number[] = [];
@@ -79,39 +62,37 @@ for (let diff = -400; diff <= 400; diff += 100) {
     function updateResults() {
       const userElo = parseInt(input.value) || 1500;
       userEloDisplay.textContent = userElo.toString();
-      
-      const existingRows = probabilityGrid.querySelectorAll('.grid-cell');
-      existingRows.forEach(row => row.remove());
 
-      
-      ratingOffsets.forEach(diff => {
+      const existingRows = probabilityGrid.querySelectorAll('.grid-cell');
+      existingRows.forEach((row) => row.remove());
+
+      ratingOffsets.forEach((diff) => {
         const opponentRating = userElo + diff;
         const winProbability = getClosestProbability(diff);
 
         const probabilityGridRow = document.createElement('tr');
-        
+
         const opponentCell = document.createElement('td');
         opponentCell.className = 'grid-cell opponent-rating';
         opponentCell.textContent = opponentRating.toString();
-        
+
         const offsetCell = document.createElement('td');
         offsetCell.className = 'grid-cell rating-diff';
         offsetCell.textContent = diff > 0 ? `+${diff}` : diff.toString();
-        
+
         const probabilityCell = document.createElement('td');
         probabilityCell.className = 'grid-cell win-prob';
         probabilityCell.textContent = formatPercent(winProbability);
-        
+
         probabilityGridRow.appendChild(opponentCell);
         probabilityGridRow.appendChild(offsetCell);
         probabilityGridRow.appendChild(probabilityCell);
         probabilityGrid.appendChild(probabilityGridRow);
       });
-
       results.style.display = 'block';
     }
 
     input.addEventListener('input', updateResults);
     updateResults();
   });
-</script> 
+</script>

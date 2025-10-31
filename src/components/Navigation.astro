@@ -9,8 +9,8 @@ const currentPath = Astro.url.pathname;
       <a href="/">SF6 Elo Calculator</a>
     </div>
     <div class="nav-links">
-      <a href="/" class={currentPath === "/" ? "active" : ""}>Calculator</a>
-      <a href="/opponent" class={currentPath === "/opponent" ? "active" : ""}>Opponent</a>
+      <a href="/" class={currentPath === '/' ? 'active' : ''}>Calculator</a>
+      <a href="/opponent" class={currentPath === '/opponent' ? 'active' : ''}>Opponent</a>
     </div>
   </div>
 </nav>
@@ -19,7 +19,7 @@ const currentPath = Astro.url.pathname;
   .navigation {
     background: #fff;
     border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -75,13 +75,14 @@ const currentPath = Astro.url.pathname;
     .nav-container {
       padding: 0 1rem;
     }
-    
+
     .nav-brand a {
       font-size: 1.1rem;
     }
-    
+
     .nav-links {
       gap: 1rem;
     }
   }
-</style> 
+</style>
+
