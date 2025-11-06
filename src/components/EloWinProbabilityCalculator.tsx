@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import {
   calculateBO3Probability,
@@ -8,7 +8,13 @@ import {
 } from '../utils/eloProbabilities';
 import './EloCalculator.css';
 
-function calculateProbabilities(userElo, opponentElo) {
+type Probabilities = {
+  winProbability: number;
+  bo3Probability: number;
+  bo5Probability: number;
+};
+
+function calculateProbabilities(userElo: number, opponentElo: number): Probabilities {
   const winProbability = calculateWinProbability(opponentElo, userElo);
   const bo3Probability = calculateBO3Probability(winProbability);
   const bo5Probability = calculateBO5Probability(winProbability);
@@ -19,11 +25,10 @@ function calculateProbabilities(userElo, opponentElo) {
 export default function EloWinProbabilityCalculator() {
   const [userElo, setUserElo] = useState(1500);
   const [opponentElo, setOpponentElo] = useState(1500);
-  const { isPending, isError, data, error } = useQuery({
+  const { isPending, isError, data, error } = useSuspenseQuery({
     queryKey: ['eloCalc', userElo, opponentElo],
-    queryFn: async () => calculateProbabilities(userElo, opponentElo),
-    staleTime: Infinity,
-    suspense: true
+    queryFn: () => calculateProbabilities(userElo, opponentElo),
+    staleTime: Infinity
   });
 
   if (isPending) {
@@ -59,11 +64,11 @@ export default function EloWinProbabilityCalculator() {
         />
       </form>
       <h4>Probability of winning a single game</h4>
-      <p id="winPercentage">{formatPercent(data.winProbability)}</p>
+      <p id="winPercentage">{formatPercent(data?.winProbability)}</p>
       <h4>Probability of winning a BO3 match</h4>
-      <p id="bo3WinPercentage">{formatPercent(data.bo3Probability)}</p>
+      <p id="bo3WinPercentage">{formatPercent(data?.bo3Probability)}</p>
       <h4>Probability of winning a BO5 match</h4>
-      <p id="bo5WinPercentage">{formatPercent(data.bo5Probability)}</p>
+      <p id="bo5WinPercentage">{formatPercent(data?.bo5Probability)}</p>
     </div>
   );
 }
