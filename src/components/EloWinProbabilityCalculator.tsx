@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useDeferredValue, useState } from 'react';
+import '../styles/EloCalculator.css';
 import {
   calculateBO3Probability,
   calculateBO5Probability,
   calculateWinProbability,
   formatPercent
 } from '../utils/eloProbabilities';
-import './EloCalculator.css';
 
 type Probabilities = {
   winProbability: number;
@@ -25,9 +25,13 @@ function calculateProbabilities(userElo: number, opponentElo: number): Probabili
 export default function EloWinProbabilityCalculator() {
   const [userElo, setUserElo] = useState(1500);
   const [opponentElo, setOpponentElo] = useState(1500);
+
+  const debouncedUserElo = useDeferredValue(userElo);
+  const debouncedOpponentElo = useDeferredValue(opponentElo);
+
   const { isPending, isError, data, error } = useSuspenseQuery({
-    queryKey: ['eloCalc', userElo, opponentElo],
-    queryFn: () => calculateProbabilities(userElo, opponentElo),
+    queryKey: ['eloCalc', debouncedUserElo, debouncedOpponentElo],
+    queryFn: async () => calculateProbabilities(debouncedUserElo, debouncedOpponentElo),
     staleTime: Infinity
   });
 
