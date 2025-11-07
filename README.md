@@ -1,52 +1,51 @@
-# Astro Starter Kit: Basics
+# Elo Win Probability Calculator
 
-```sh
-npm create astro@latest -- --template basics
+A simple web tool that calculates win probabilities between two players based on their Elo ratings.  
+Built with React, TypeScript, and TanStack Query to demonstrate real-time calculations with deferred input updates for smooth user interaction.
+
+## Overview
+
+This project estimates the probability of winning a set (BO1, BO3, or BO5) given two Elo ratings.  
+It uses the Elo formula to determine base win rates and derives extended probabilities for multi-game sets.
+
+The app is optimized for performance:
+- useDeferredValue prevents excessive recomputation while typing.
+- TanStack Query manages caching and reactivity.
+- Suspense ensures clean loading states without manual checks.
+
+## Features
+
+- Enter player and opponent Elo ratings.
+- Instant probability updates once input stabilizes.
+- Displays win chances for:
+  - Single match
+  - Best-of-3 set
+  - Best-of-5 set
+- Fully typed with TypeScript.
+- Suspense-ready TanStack Query setup.
+
+## Tech Stack
+
+- React 18+
+- TypeScript
+- TanStack Query (v5)
+- Vite for local development and build tooling
+
+## Running Locally
+
+```bash
+# install dependencies
+npm install
+
+# start development server
+npm run dev
+
+# build for production
+npm run build
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Open http://localhost:5173 in your browser.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## License
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT License © 2025 Kevin Adu-Sarkodie
